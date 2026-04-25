@@ -1,49 +1,772 @@
-<section class="section">
-  <div class="section-head">
-    <div>
-      <div class="section-kicker">Featured Expedition</div>
-      <h2 class="section-title">
-        Pöyrisjärven Poromiesten Polut
-      </h2>
-    </div>
-    <p class="section-text">
-      Aito erämaakokemus – ilman turhia palveluita. Vain sinä, ryhmä ja opas.
-    </p>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wild Hermes — Curated Luxury Journeys</title>
+  <style>
+    :root {
+      --bg: #07090d;
+      --bg-soft: #0b0f16;
+      --ink: #f5efe3;
+      --muted: rgba(245, 239, 227, 0.68);
+      --gold: #d8b46a;
+      --gold-soft: rgba(216, 180, 106, 0.22);
+      --aurora: #00ffb2;
+      --cyan: #52e6ff;
+      --glass: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --font-main: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: Georgia, "Times New Roman", serif;
+    }
 
-  <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px;">
+    * { box-sizing: border-box; }
 
-    <!-- VASEN: KUVA -->
-    <div style="
-      height:600px;
-      border-radius:30px;
-      overflow:hidden;
-      background:url('tunturi3.jpg') center/cover;
-      box-shadow:0 30px 80px rgba(0,0,0,0.6);
-    "></div>
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
 
-    <!-- OIKEA: SISÄLTÖ -->
-    <div>
-      <h3 style="font-size:2rem; margin-bottom:10px;">
-        Opastettu erämaavaellus autiotuvilla
-      </h3>
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0,255,178,0.16), transparent 34%),
+        radial-gradient(circle at 80% 12%, rgba(82,230,255,0.10), transparent 30%),
+        linear-gradient(180deg, #05070b 0%, #0c1118 52%, #06070a 100%);
+      overflow-x: hidden;
+    }
 
-      <p style="opacity:0.8; line-height:1.6;">
-        Aloitamme Näkkälän poromiesten kylästä ja kuljemme
-        Pöyrisjärven erämaahan – hiekkadyynien, tuntureiden
-        ja revontulien keskelle.
-      </p>
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 68px 68px;
+      mask-image: linear-gradient(to bottom, black, transparent 75%);
+    }
 
-      <div style="margin:20px 0;">
-        <strong>Kesto:</strong> 5 päivää<br>
-        <strong>Ryhmä:</strong> 4–8 henkeä<br>
-        <strong>Hinta:</strong> 490€
+    a { color: inherit; text-decoration: none; }
+
+    .site-shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      width: min(1180px, calc(100% - 32px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px 12px 20px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(7, 9, 13, 0.62);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #08090c;
+      background: conic-gradient(from 120deg, var(--gold), #fff1bd, var(--aurora), var(--gold));
+      box-shadow: 0 0 36px rgba(216, 180, 106, 0.34);
+      font-family: var(--font-display);
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      color: rgba(245, 239, 227, 0.78);
+      font-size: 0.86rem;
+    }
+
+    .nav-links a {
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .reserve-btn {
+      position: relative;
+      isolation: isolate;
+      border: 0;
+      border-radius: 999px;
+      color: #08100d;
+      padding: 13px 22px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: linear-gradient(135deg, #fff4bf, var(--gold) 45%, var(--aurora));
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.28) inset, 0 14px 38px rgba(216,180,106,0.34);
+      overflow: hidden;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .reserve-btn::before {
+      content: "";
+      position: absolute;
+      inset: -80% -40%;
+      z-index: -1;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.75), transparent);
+      transform: translateX(-70%) rotate(18deg);
+      transition: transform 0.7s ease;
+    }
+
+    .reserve-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.38) inset, 0 0 46px rgba(0,255,178,0.33), 0 20px 48px rgba(216,180,106,0.38);
+    }
+
+    .reserve-btn:hover::before { transform: translateX(70%) rotate(18deg); }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: end;
+      padding: 130px clamp(20px, 5vw, 80px) 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.64)),
+        url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=2200&q=85') center/cover;
+      transform: scale(1.04);
+      z-index: -3;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      top: 6%;
+      width: 120%;
+      height: 40%;
+      background: linear-gradient(100deg, transparent, rgba(0,255,178,0.08), rgba(82,230,255,0.12), transparent);
+      filter: blur(22px);
+      animation: auroraFlow 10s ease-in-out infinite alternate;
+      z-index: -2;
+    }
+
+    @keyframes auroraFlow {
+      from { transform: translateX(-4%) skewY(-4deg); opacity: 0.42; }
+      to { transform: translateX(4%) skewY(4deg); opacity: 0.8; }
+    }
+
+    .hero-content {
+      width: min(1120px, 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      color: rgba(245,239,227,0.82);
+      backdrop-filter: blur(18px);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--aurora);
+      box-shadow: 0 0 20px var(--aurora);
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 28px 0 20px;
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 9.8rem);
+      line-height: 0.86;
+      letter-spacing: -0.075em;
+      font-weight: 500;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      color: rgba(245,239,227,0.78);
+      font-size: clamp(1.05rem, 1.8vw, 1.32rem);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .ghost-btn {
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--ink);
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      font-weight: 800;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .ghost-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .section {
+      padding: 110px clamp(20px, 5vw, 80px);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 420px);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      font-weight: 500;
+    }
+
+    .section-text {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1.02rem;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .journey-card {
+      position: relative;
+      min-height: 560px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: #111;
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(.2,.8,.2,1), border-color 0.35s ease;
+    }
+
+    .journey-card:hover {
+      transform: translateY(-10px) scale(1.012);
+      border-color: rgba(216,180,106,0.45);
+    }
+
+    .journey-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.04);
+      transition: transform 1.2s cubic-bezier(.2,.8,.2,1), filter 0.7s ease;
+    }
+
+    .journey-card:hover img {
+      transform: scale(1.14);
+      filter: saturate(1.18) contrast(1.08);
+    }
+
+    .journey-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(216,180,106,0.18), transparent 34%),
+        linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.18) 54%, rgba(0,0,0,0.08));
+    }
+
+    .card-content {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 30px;
+      z-index: 2;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(14px);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 0.72rem;
+      color: rgba(245,239,227,0.82);
+      font-weight: 800;
+    }
+
+    .journey-card h3 {
+      margin: 0 0 10px;
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 500;
+    }
+
+    .journey-card p {
+      color: rgba(245,239,227,0.76);
+      line-height: 1.58;
+      margin: 0;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 22px;
+      transform: translateY(18px);
+      opacity: 0;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .journey-card:hover .card-footer {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .price {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .micro-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: rgba(255,255,255,0.11);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .micro-btn:hover {
+      transform: rotate(-12deg) scale(1.08);
+      background: rgba(216,180,106,0.22);
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .story-panel {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.045));
+      backdrop-filter: blur(20px);
+      padding: clamp(28px, 4vw, 54px);
+      box-shadow: var(--shadow);
+    }
+
+    .story-panel h2 {
+      margin: 0 0 20px;
+      font-family: var(--font-display);
+      font-size: clamp(2.35rem, 5vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      font-weight: 500;
+    }
+
+    .story-panel p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .cinema-strip {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cinema-shot {
+      min-height: 260px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .cinema-shot:nth-child(1) { grid-row: span 2; }
+
+    .cinema-shot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease;
+    }
+
+    .cinema-shot:hover img { transform: scale(1.09); }
+
+    .cinema-shot span {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 2;
+      font-weight: 900;
+      text-shadow: 0 4px 20px #000;
+    }
+
+    .apply {
+      border-radius: 44px;
+      border: 1px solid rgba(216,180,106,0.24);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(216,180,106,0.22), transparent 35%),
+        radial-gradient(circle at 100% 0%, rgba(0,255,178,0.12), transparent 34%),
+        rgba(255,255,255,0.055);
+      padding: clamp(28px, 5vw, 64px);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .apply h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 6.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.06em;
+      font-weight: 500;
+    }
+
+    .apply p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .form-card {
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: var(--radius-xl);
+      background: rgba(8,10,14,0.58);
+      backdrop-filter: blur(22px);
+      padding: 24px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      color: rgba(245,239,227,0.74);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.075);
+      color: var(--ink);
+      padding: 15px 16px;
+      outline: none;
+      font: inherit;
+    }
+
+    .field textarea { min-height: 110px; resize: vertical; }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(216,180,106,0.52);
+      box-shadow: 0 0 0 4px rgba(216,180,106,0.1);
+    }
+
+    .full-btn {
+      width: 100%;
+      margin-top: 6px;
+      border: 0;
+      border-radius: 20px;
+      padding: 16px;
+      color: #08090c;
+      background: linear-gradient(135deg, #fff1bd, var(--gold), var(--aurora));
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 18px 45px rgba(216,180,106,0.28);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: reveal 0.9s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.28s; }
+    .delay-3 { animation-delay: 0.42s; }
+
+    @keyframes reveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      padding: 42px clamp(20px, 5vw, 80px) 70px;
+      color: rgba(245,239,227,0.5);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.09);
+    }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .section-head,
+      .story,
+      .apply { grid-template-columns: 1fr; }
+      .journey-grid { grid-template-columns: 1fr; }
+      .journey-card { min-height: 520px; }
+    }
+
+    @media (max-width: 560px) {
+      .nav { top: 10px; width: calc(100% - 20px); }
+      .brand span:last-child { display: none; }
+      .reserve-btn { padding: 12px 15px; font-size: 0.74rem; }
+      .hero { padding-top: 110px; }
+      h1 { font-size: clamp(3.4rem, 18vw, 5.8rem); }
+      .section { padding: 84px 16px; }
+      .cinema-strip { grid-template-columns: 1fr; }
+      .cinema-shot:nth-child(1) { grid-row: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="Wild Hermes home">
+        <span class="brand-mark">H</span>
+        <span>Wild Hermes</span>
+      </a>
+      <div class="nav-links">
+        <a href="#journeys">Journeys</a>
+        <a href="#story">Philosophy</a>
+        <a href="#apply">Apply</a>
       </div>
+      <a href="#apply" class="reserve-btn">Varaa</a>
+    </nav>
 
-      <button class="reserve-btn">
-        Hae mukaan
-      </button>
-    </div>
+    <header id="top" class="hero">
+      <div class="hero-content">
+        <div class="eyebrow reveal"><span class="pulse-dot"></span> Private journeys for people who want more than a holiday</div>
+        <h1 class="reveal delay-1">Travel that changes your standard.</h1>
+        <p class="hero-copy reveal delay-2">Wild Hermes creates cinematic, deeply personal journeys through rare landscapes, hidden cultures and unforgettable human connection.</p>
+        <div class="hero-actions reveal delay-3">
+          <a class="reserve-btn" href="#journeys">Explore journeys</a>
+          <a class="ghost-btn" href="#story">The Wild Hermes way</a>
+        </div>
+      </div>
+    </header>
 
+    <main>
+      <section id="journeys" class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Curated collection</div>
+            <h2 class="section-title">Not trips. Transformative chapters.</h2>
+          </div>
+          <p class="section-text">Each journey is designed like a film: dramatic arrival, slow luxury, private details, meaningful encounters and a final memory that stays with you.</p>
+        </div>
+
+        <div class="journey-grid">
+          <article class="journey-card">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85" alt="Nordic wilderness cabin and landscape" />
+            <div class="card-content">
+              <div class="tag-row"><span class="tag">Aurora</span><span class="tag">Private cabin</span><span class="tag">Arctic silence</span></div>
+              <h3>Nordic Aurora Retreat</h3>
+              <p>Fire, snow, silence and northern lights — crafted for people who want to feel the old world again.</p>
+              <div class="card-footer"><span class="price">From €2,900</span><a class="micro-btn" href="#apply">→</a></div>
+            </div>
+          </article>
+
+          <article class="journey-card">
+            <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1400&q=85" alt="Maldives tropical island" />
+            <div class="card-content">
+              <div class="tag-row"><span class="tag">Ocean</span><span class="tag">Barefoot luxury</span><span class="tag">Reset</span></div>
+              <h3>Private Island Escape</h3>
+              <p>A soft, beautiful reset where time disappears and every detail feels effortless.</p>
+              <div class="card-footer"><span class="price">From €4,800</span><a class="micro-btn" href="#apply">→</a></div>
+            </div>
+          </article>
+
+          <article class="journey-card">
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1400&q=85" alt="Desert luxury travel" />
+            <div class="card-content">
+              <div class="tag-row"><span class="tag">Desert</span><span class="tag">Ritual</span><span class="tag">Nomad luxury</span></div>
+              <h3>Golden Desert Passage</h3>
+              <p>Lanterns, dunes, spices and stories under a sky that makes the world feel infinite.</p>
+              <div class="card-footer"><span class="price">From €3,600</span><a class="micro-btn" href="#apply">→</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Field gallery</div>
+            <h2 class="section-title">Captured in the wild</h2>
+          </div>
+          <p class="section-text">Real moments from the terrain — no stock, no filters, just the journey.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;">
+          <img src="Moto9.8-24 2906.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2908.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2910.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2914.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2915.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2916.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2917.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2922.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+          <img src="Moto9.8-24 2923.jpg" style="width:100%; border-radius:18px; object-fit:cover;" />
+        </div>
+      </section>
+
+      <section id="story" class="section story">
+        <div class="story-panel">
+          <div class="section-kicker">The philosophy</div>
+          <h2>Designed for the moment after ordinary ends.</h2>
+          <p>Wild Hermes exists for people who know there is a deeper version of travel: more human, more beautiful, more alive. We combine high-end planning with local soul, cinematic landscapes and a sense of mythology.</p>
+          <p>Every destination is selected for one reason: it must leave the traveller different than before.</p>
+          <a class="ghost-btn" href="#apply">Request a private journey</a>
+        </div>
+
+        <div class="cinema-strip">
+          <div class="cinema-shot"><img src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?auto=format&fit=crop&w=1200&q=85" alt="Mountain journey" /><span>Arrival</span></div>
+          <div class="cinema-shot"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85" alt="Wild road" /><span>Discovery</span></div>
+          <div class="cinema-shot"><img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=85" alt="Nature landscape" /><span>Awakening</span></div>
+        </div>
+      </section>
+
+      <section id="apply" class="section">
+        <div class="apply">
+          <div>
+            <div class="section-kicker">By request only</div>
+            <h2>Tell us what kind of life you want to remember.</h2>
+            <p>This form is intentionally short. Wild Hermes journeys are built through conversation, intuition and carefully selected details.</p>
+          </div>
+
+          <form class="form-card">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" type="text" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="you@example.com" />
+            </div>
+            <div class="field">
+              <label for="journey">Journey style</label>
+              <select id="journey">
+                <option>Nordic Aurora Retreat</option>
+                <option>Private Island Escape</option>
+                <option>Golden Desert Passage</option>
+                <option>Design something completely custom</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">What are you seeking?</label>
+              <textarea id="message" placeholder="Adventure, healing, luxury, silence, family, love, freedom..."></textarea>
+            </div>
+            <button class="full-btn" type="button">Begin the journey</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© Wild Hermes</span>
+      <span>Private journeys · Rare landscapes · Human connection</span>
+    </footer>
   </div>
-</section>
+</body>
+</html>
